@@ -11,9 +11,16 @@ type Show {
 type Mutation {
     createShow(createShowInput: CreateShowInput): Show
     removeShow(id: Int): Show
+    updateShow(updateShowInput: UpdateShowInput): Show
 }
 
 input CreateShowInput {
+    title: String,
+    releaseYear: Int
+}
+
+input UpdateShowInput {
+    id: Int
     title: String,
     releaseYear: Int
 }

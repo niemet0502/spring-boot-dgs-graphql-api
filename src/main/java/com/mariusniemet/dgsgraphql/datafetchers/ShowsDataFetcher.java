@@ -1,6 +1,7 @@
 package com.mariusniemet.dgsgraphql.datafetchers;
 
 import com.mariusniemet.dgsgraphql.dto.CreateShowInput;
+import com.mariusniemet.dgsgraphql.dto.UpdateShowInput;
 import com.mariusniemet.dgsgraphql.entities.Show;
 import com.mariusniemet.dgsgraphql.services.ShowsService;
 import com.netflix.graphql.dgs.DgsComponent;
@@ -32,8 +33,6 @@ public class ShowsDataFetcher {
     @DgsMutation
         public Show createShow(@InputArgument("createShowInput") CreateShowInput createShowInput){
 
-        System.out.println(createShowInput.getTitle());
-
         return this.service.create(createShowInput);
     }
 
@@ -41,5 +40,11 @@ public class ShowsDataFetcher {
     public Show removeShow(@InputArgument("id") int id) throws BadRequestException {
         return this.service.remove(id);
     }
+
+    @DgsMutation
+    public Show updateShow(@InputArgument("updateShowInput")UpdateShowInput updateShowInput) throws BadRequestException {
+        return this.service.update(updateShowInput);
+    }
+
 
 }
