@@ -10,10 +10,11 @@ import com.netflix.graphql.dgs.DgsMutation;
 import com.netflix.graphql.dgs.DgsQuery;
 import com.netflix.graphql.dgs.InputArgument;
 import graphql.schema.DataFetchingEnvironment;
+import org.apache.coyote.BadRequestException;
 
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
+
 @DgsComponent
 public class ShowsDataFetcher {
     private final ShowsService service;
@@ -38,4 +39,10 @@ public class ShowsDataFetcher {
 
         return this.service.create(createShowInput);
     }
+
+    @DgsMutation
+    public Show removeShow(@InputArgument("id") int id) throws BadRequestException {
+        return this.service.remove(id);
+    }
+
 }

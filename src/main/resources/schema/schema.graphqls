@@ -3,12 +3,14 @@ type Query {
 }
 
 type Show {
+    id: Int
     title: String
     releaseYear: Int
 }
 
 type Mutation {
     createShow(createShowInput: CreateShowInput): Show
+    removeShow(id: Int): Show
 }
 
 input CreateShowInput {
