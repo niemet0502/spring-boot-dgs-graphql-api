@@ -2,7 +2,6 @@ package com.mariusniemet.dgsgraphql.services;
 
 import com.mariusniemet.dgsgraphql.dto.CreateShowInput;
 import com.mariusniemet.dgsgraphql.entities.Show;
-import com.netflix.graphql.dgs.DgsMutation;
 import org.apache.coyote.BadRequestException;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +11,7 @@ import java.util.Optional;
 
 @Service
 public class ShowsService {
-    private ArrayList<Show> shows = new ArrayList<Show>();
+    private final ArrayList<Show> shows = new ArrayList<>();
     public List<Show> findAll(){
         return this.shows;
     }
@@ -27,7 +26,7 @@ public class ShowsService {
     }
 
     public Show remove(int id) throws BadRequestException {
-        Optional<Show> result = this.shows.stream().filter(s -> s.getId() == id).findFirst();;
+        Optional<Show> result = this.shows.stream().filter(s -> s.getId() == id).findFirst();
 
         if (result.isEmpty()){
             throw new BadRequestException("Show not found");

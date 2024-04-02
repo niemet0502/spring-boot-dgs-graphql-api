@@ -1,15 +1,12 @@
 package com.mariusniemet.dgsgraphql.datafetchers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mariusniemet.dgsgraphql.dto.CreateShowInput;
 import com.mariusniemet.dgsgraphql.entities.Show;
 import com.mariusniemet.dgsgraphql.services.ShowsService;
 import com.netflix.graphql.dgs.DgsComponent;
-import com.netflix.graphql.dgs.DgsData;
 import com.netflix.graphql.dgs.DgsMutation;
 import com.netflix.graphql.dgs.DgsQuery;
 import com.netflix.graphql.dgs.InputArgument;
-import graphql.schema.DataFetchingEnvironment;
 import org.apache.coyote.BadRequestException;
 
 import java.util.List;
