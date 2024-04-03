@@ -3,6 +3,7 @@ package com.mariusniemet.dgsgraphql.services;
 import com.mariusniemet.dgsgraphql.dto.CreateShowInput;
 import com.mariusniemet.dgsgraphql.dto.UpdateShowInput;
 import com.mariusniemet.dgsgraphql.entities.Show;
+import com.mariusniemet.dgsgraphql.repositories.IShowRepository;
 import org.apache.coyote.BadRequestException;
 import org.springframework.stereotype.Service;
 
@@ -12,43 +13,48 @@ import java.util.Optional;
 
 @Service
 public class ShowsService {
+
+    private final IShowRepository repository;
+
+    public ShowsService(IShowRepository repository){
+        this.repository = repository;
+    }
     private final ArrayList<Show> shows = new ArrayList<>();
     public List<Show> findAll(){
-        return this.shows;
+        return this.repository.findAll();
     }
 
     public Show create(CreateShowInput input){
-        int len = this.shows.size();
-        Show newShow = new Show(input.getTitle(), input.getReleaseYear(), ++len);
+        Show newShow = new Show(input.getTitle(), input.getReleaseYear());
 
-
-        this.shows.add(newShow);
+        this.repository.save(newShow);
         return newShow;
     }
 
-    public Show remove(int id) throws BadRequestException {
-        Optional<Show> result = this.shows.stream().filter(s -> s.getId() == id).findFirst();
+    public Show remove(Long id) throws BadRequestException {
+        Optional<Show> result = this.repository.findById(id);
 
         if (result.isEmpty()){
             throw new BadRequestException("Show not found");
         }
 
-        this.shows.removeIf(s -> s.getId() == id);
+        Show toDelete = result.get();
 
-        return result.get();
+        this.repository.delete(toDelete);
+
+        return toDelete;
     }
 
     public Show update(UpdateShowInput updateShowInput) throws BadRequestException{
-        Optional<Show> result = this.shows.stream().filter(s -> s.getId() == updateShowInput.getId()).findFirst();
+        Optional<Show> result = this.repository.findById((long) updateShowInput.getId());
 
         if (result.isEmpty()){
             throw new BadRequestException("Show not found");
         }
+        Show toUpdate = result.get();
+        toUpdate.setTitle(updateShowInput.getTitle());
+        toUpdate.setReleaseYear(updateShowInput.getReleaseYear());
 
-        Show updated = new Show(updateShowInput.getTitle(), updateShowInput.getReleaseYear(), updateShowInput.getId());
-
-        this.shows.replaceAll(s -> s.getId() == updateShowInput.getId() ? updated : s);
-
-        return  updated;
+        return  toUpdate;
     }
 }

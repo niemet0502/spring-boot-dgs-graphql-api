@@ -37,8 +37,8 @@ public class ShowsDataFetcher {
     }
 
     @DgsMutation
-    public Show removeShow(@InputArgument("id") int id) throws BadRequestException {
-        return this.service.remove(id);
+    public Show removeShow(@InputArgument Integer id) throws BadRequestException {
+        return this.service.remove((long) id);
     }
 
     @DgsMutation

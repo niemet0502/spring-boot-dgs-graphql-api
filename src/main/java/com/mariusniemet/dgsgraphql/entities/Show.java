@@ -1,29 +1,50 @@
 package com.mariusniemet.dgsgraphql.entities;
 
-public class Show {
-    private int id;
-    private final String title;
-    private final Integer releaseYear;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
-    public Show(String title, Integer releaseYear, int id) {
+@Entity(name="tv_shows")
+public class Show {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private String title;
+
+    private int releaseYear;
+
+    public Show(String title, int releaseYear) {
         this.title = title;
         this.releaseYear = releaseYear;
-        this.id = id;
+    }
+
+    public Show() {
+
     }
 
     public String getTitle() {
         return title;
     }
 
-    public Integer getReleaseYear() {
+    public int getReleaseYear() {
         return releaseYear;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public void setReleaseYear(int releaseYear) {
+        this.releaseYear = releaseYear;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }
