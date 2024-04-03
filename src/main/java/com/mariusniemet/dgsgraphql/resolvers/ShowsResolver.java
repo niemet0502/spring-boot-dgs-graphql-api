@@ -1,4 +1,4 @@
-package com.mariusniemet.dgsgraphql.datafetchers;
+package com.mariusniemet.dgsgraphql.resolvers;
 
 import com.mariusniemet.dgsgraphql.dto.CreateShowInput;
 import com.mariusniemet.dgsgraphql.dto.UpdateShowInput;
@@ -14,10 +14,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @DgsComponent
-public class ShowsDataFetcher {
+public class ShowsResolver {
     private final ShowsService service;
 
-    public ShowsDataFetcher(ShowsService service){
+    public ShowsResolver(ShowsService service){
         this.service = service;
     }
 
